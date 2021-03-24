@@ -11,47 +11,19 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.safetynet.api.app.model.MedicalRecord;
 import com.safetynet.api.app.model.Person;
-//@Transactional
+@Transactional
 @Repository
-//@Configurable(preConstruction = true, autowire = Autowire.BY_NAME) 
-//@Component("beanName1")
+
 public interface PersonRepository extends JpaRepository<Person, Long> {
 
-  /*List<Person> findByLastName(String lastName);
-
-  Person findById(long id);
-
-Person findByemail(String email);
-*/
-
-
-  
-
-  
+	@Query("select p from Person p where CONCAT(p.firstName, p.lastName) = ?1")
+	  Person findPersonByFirstLastName(String firstLastName);
 }
-
-
-/*@Bean
-public CommandLineRunner demo(PersonRepository repository) {
-  return (args) -> {
-    // save a few customers
-    repository.save(new Person("Jack", "Bauer"));
-    repository.save(new Person("Chloe", "O'Brian"));
-    repository.save(new Person("Kim", "Bauer"));
-    repository.save(new Person("David", "Palmer"));
-    repository.save(new Person("Michelle", "Dessler"));
-
-    	      
-    // for (Customer bauer : repository.findByLastName("Bauer")) {
-    //  log.info(bauer.toString());
-    // }
-    
-  };
-
-}*/

@@ -1,5 +1,7 @@
 package com.safetynet.api.app.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowire;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -20,22 +22,9 @@ PersonRepository personRepository;
 	
 
 public PersonService() {}
-/*
-public String create(String firstName, String lastName, String address, String city, String zip, String email) {
-    String personId = "";
-    try {
-      Person person = new Person(firstName, lastName, address, city, zip, email);
-      personRepository.save(person);
-      personId = String.valueOf(person.getId());
-    }
-    catch (Exception ex) {
-      return "Error creating the user: " + ex.toString();
-    }
-    return "Person succesfully created with id = " + personId;
-  }
-*/
 
-public String create(Person person) {
+
+public String createPersonService(Person person) {
 	String personId = "";
     try {
       
@@ -48,39 +37,48 @@ public String create(Person person) {
     return "Person succesfully created with id = " + personId;
 }
 
-public String find(int id) throws Exception {
-    String userId = "";
-    Person user = new Person();
-    try {
-     
-      
-     // user = personRepository.findById(id);
-      
-     
-    }
-    catch (Exception ex) {
-      throw new Exception(ex); //"Error creating the user: " + ex.toString(); 
-    }
-    return user.toString();
-     //"User succesfully created with id = " + userId;
+
+public String updatePersonService(Person person)
+{
+	
+	String firstLastName = person.getFirstName() + person.getLastName();
+	try {
+		
+		Person personFromDB = personRepository.findPersonByFirstLastName(firstLastName);
+		personFromDB.setAddress(person.getAddress());
+		personFromDB.setCity(person.getCity());
+		personFromDB.setEmail(person.getEmail());
+		personFromDB.setZip(person.getZip());
+		personFromDB.setPhone(person.getPhone());
+	
+	
+	personRepository.save(personFromDB);
+	}
+	catch (Exception ex) {
+	      return "Error updating the Person: " + ex.toString();
+	    }
+	
+	
+	    return "Person succesfully updated  (Note: FirstName and LastName are not going to be modified)" ;
+	
+}
+
+
+public String deletePersonService(String firstName, String lastName) throws Exception {
+	Person person;
+	try {
+		 String firstLastName = firstName + lastName;
+	      person = personRepository.findPersonByFirstLastName(firstLastName);
+	      personRepository.deleteById(person.getId());
+	      
+	    }
+	    catch (Exception ex) {
+	      return "Error deleting the Person: " + ex.toString();
+	    }
+	    return "Person succesfully deleted with id = " + person.getId().toString();
   }
 
-	 public String findbyemail( String email) throws Exception {
-		    String userId = "";
-		    Person user = new Person();
-		    try {
-		      
-		      
-		     // user = personRepository.findByemail(email);
-		      
-		     
-		    }
-		    catch (Exception ex) {
-		    	throw new Exception(ex);// return "Error creating the user: " + ex.toString();
-		    }
-		    return user.toString();
-		    //return "User succesfully created with id = " + userId;
-		  }
+	
 
 }
 

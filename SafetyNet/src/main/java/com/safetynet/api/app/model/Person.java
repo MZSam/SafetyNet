@@ -65,15 +65,17 @@ public class Person {
 	  public String toString() {
 		 
 	        final StringBuilder sb = new StringBuilder("Person{");
-	        sb.append("id=").append(id);
-	        sb.append(", firstName='").append(firstName).append('\'');
+	        //sb.append("id=").append(id);
+	        sb.append(" firstName='").append(firstName).append('\'');
 	        sb.append(", lastName='").append(lastName).append('\'');
 	        sb.append(", address='").append(address).append('\'');
 	        sb.append(", city='").append(city).append('\'');
 	        sb.append(", zip='").append(zip).append('\'');
 	        sb.append(", email=").append(email);
 	        sb.append('}');
-	        return sb.toString();
+	        
+	        return "{ \"firstName\":\"Jacob5\", \"lastName\":\"Boyd7\", \"address\":\"1509 Culver St\", \"city\":\"Culver\", \"zip\":\"97451\", \"phone\":\"841-874-6513\", \"email\":\"drk@email.com\" }";
+	        //return sb.toString();
 	  }
 
   public Long getId() {

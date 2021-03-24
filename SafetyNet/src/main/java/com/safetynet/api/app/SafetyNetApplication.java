@@ -29,7 +29,7 @@ import com.safetynet.api.app.repository.*;
 
 
 @SpringBootApplication
-@EnableJpaAuditing
+
 //@ComponentScan({"com.safetynet.api.app.controller"})
 public class SafetyNetApplication {
 	/*@Autowired
@@ -59,23 +59,7 @@ public class SafetyNetApplication {
 		 
 	}
 	
-	@Autowired 
-	PersonRepository pr;
 	
-    public void run(String[] args) throws IOException {
-
-    	
-    	ObjectMapper objectMapper = new ObjectMapper();
-   	 List<Person> myObjects = objectMapper.readValue(new File("src/main/resources/Person.json"), new TypeReference<List<Person>>(){});
-   	 String json = "";
-   	 for (Person p : myObjects) {
-   		 if (p != null)
-   		 {
-   		    pr.save(p);
-   		    json = json + p.toString()+ "\n"; 
-   		 }
-   		}
-    }
 /*	@Autowired
 	
 	private static PersonService personService;

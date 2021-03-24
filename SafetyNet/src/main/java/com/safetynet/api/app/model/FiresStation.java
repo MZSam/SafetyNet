@@ -21,7 +21,7 @@ public class FiresStation {
 	// address":"1509 Culver St", "station":"3" 
 	  @Id
 	  @GeneratedValue(strategy=GenerationType.AUTO)
-		private int id;
+		private Long id;
 	  @Column(nullable = false, updatable = true)
 		private String address;
 	  @Column(nullable = false, updatable = true)
@@ -32,10 +32,10 @@ public class FiresStation {
 		this.address = address;
 		this.station = station;
 	}
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getAddress() {
