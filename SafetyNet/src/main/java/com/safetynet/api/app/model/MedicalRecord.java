@@ -11,9 +11,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.TemporalType;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.data.jpa.repository.Temporal;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.gson.Gson;
 @Entity
@@ -24,15 +27,16 @@ import com.google.gson.Gson;
 public class MedicalRecord {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
-	 @Column(nullable = false, updatable = true)
-	private int personId ;
+	private Long id;
+	
 	 @Column(nullable = false, updatable = true)
 	private String firstName;
 	 @Column(nullable = false, updatable = true)
 	private String lastName;
 	 @Column(nullable = false, updatable = true)
-	private Date birthdate;
+	 //@Temporal(TemporalType.DATE)
+	 @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+	private java.sql.Date birthdate;
 	 @Column(nullable = false, updatable = true)
 	 @ElementCollection(targetClass=String.class)
 	private List<String> medications;
@@ -41,25 +45,19 @@ public class MedicalRecord {
 	private List<String> allergies;
 	 
 	public MedicalRecord() {}
-	public MedicalRecord(int personId, String firstName, String lastName, Date birthdate,List<String> medications, List<String> allergies ) {
-		this.personId = personId;
+	public MedicalRecord( String firstName, String lastName, Date birthdate,List<String> medications, List<String> allergies ) {
+
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.birthdate = birthdate;
 		this.medications = medications;
 		this.allergies = allergies;
 	}
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
-	}
-	public int getPersonId() {
-		return personId;
-	}
-	public void setPersonId(int personId) {
-		this.personId = personId;
 	}
 	public String getFirstName() {
 		return firstName;
@@ -98,7 +96,6 @@ public class MedicalRecord {
 		String AllergiesJsonString = new Gson().toJson(allergies);
         final StringBuilder sb = new StringBuilder("MedicalRecord{");
         sb.append("id=").append(id);
-        sb.append(", personId='").append(personId).append('\'');
         sb.append(", firstName='").append(firstName).append('\'');
         sb.append(", lastName='").append(lastName).append('\'');
         sb.append(", birthdate='").append(birthdate).append('\'');

@@ -25,7 +25,7 @@ public class PersonServiceTest {
 	
 	
 	
-	@Test
+	/*@Test
 	void findbyIdTest() throws Exception {
 		int id = 1;
 		personService.find(id);
@@ -40,5 +40,5 @@ public class PersonServiceTest {
 		
 		
 	}
-
+*/
 }
